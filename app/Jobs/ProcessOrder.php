@@ -32,6 +32,6 @@ class ProcessOrder implements ShouldQueue
      */
     public function handle()
     {
-		file_put_contents("/Users/clive/Workspace/1.txt",$this->order);
+		file_put_contents(env("SERVER_WWW")."1.txt",$this->order);
     }
 }
