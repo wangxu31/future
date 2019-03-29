@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-define('TOKEN','weixin');
+define('TOKEN','clive31');
 
 class HomeController extends Controller
 {
