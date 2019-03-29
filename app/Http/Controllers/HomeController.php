@@ -8,31 +8,14 @@ define('TOKEN','weixin');
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
     public function check()
     {
         //如果相等，验证成功就返回echostr
-        if($this->checkSignature())
-        {
+        if ($this->checkSignature()) {
             //返回echostr
-            $echostr = $_GET['echostr'];
-            if($echostr)
-            {
-                echo $echostr;
+            $echoStr = $_GET['echostr'];
+            if ($echoStr) {
+                echo $echoStr;
                 exit;
             }
         }
@@ -46,7 +29,7 @@ class HomeController extends Controller
         $nonce = $_GET['nonce'];
         $timestamp = $_GET['timestamp'];
 
-              //把这三个参数存到一个数组里面
+        //把这三个参数存到一个数组里面
         $tmpArr = array($timestamp,$nonce,TOKEN);
         //进行字典排序
         sort($tmpArr);
@@ -55,10 +38,9 @@ class HomeController extends Controller
         $tmpStr = implode($tmpArr);
 
         //sha1加密，调用sha1函数
-               $tmpStr = sha1($tmpStr);
+         $tmpStr = sha1($tmpStr);
         //判断加密后的字符串是否和signature相等
-        if($tmpStr == $signature)
-        {
+        if ($tmpStr == $signature) {
             return true;
         }
         return false;
