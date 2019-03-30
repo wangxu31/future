@@ -21,6 +21,11 @@ class WexinController extends Controller
         }
     }
 
+    public function handleMsg()
+    {
+        var_dump($_REQUEST);
+    }
+
     //检查标签
     private function checkSignature()
     {
