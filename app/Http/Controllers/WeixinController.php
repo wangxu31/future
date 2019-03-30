@@ -30,7 +30,7 @@ class WeixinController extends Controller
         //&encrypt_type=aes
         //&msg_signature=1d88d14cf818662f2e9e5430b4a09655d29ecdc0
         var_dump($_REQUEST);
-        file_get_contents("./request.txt", json_encode($_REQUEST));
+        file_put_contents("./request.txt", json_encode($_REQUEST));
     }
 
     //检查标签
