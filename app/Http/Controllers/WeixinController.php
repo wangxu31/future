@@ -23,7 +23,14 @@ class WeixinController extends Controller
 
     public function handleMsg()
     {
+        //signature=e5dcaf8f1f56dec02822f23bb265a5e4829affd4
+        //&timestamp=1553937344
+        //&nonce=1287316443
+        //&openid=o9O7PwKec9bZRRejpiyFlAL_Sgwk
+        //&encrypt_type=aes
+        //&msg_signature=1d88d14cf818662f2e9e5430b4a09655d29ecdc0
         var_dump($_REQUEST);
+        file_get_contents("./request.txt", json_encode($_REQUEST));
     }
 
     //检查标签
