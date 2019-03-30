@@ -21,7 +21,7 @@ class WeixinController extends Controller
         }
     }
 
-    public function handleMsg()
+    /*public function handleMsg()
     {
         //signature=e5dcaf8f1f56dec02822f23bb265a5e4829affd4
         //&timestamp=1553937344
@@ -31,6 +31,38 @@ class WeixinController extends Controller
         //&msg_signature=1d88d14cf818662f2e9e5430b4a09655d29ecdc0
         var_dump($_REQUEST);
         log("info", json_encode($_REQUEST));
+    }*/
+
+    public function handleMsg()
+    {
+        $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+        if (!empty($postStr)){
+            $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+            $fromUsername = $postObj->FromUserName;
+            $toUsername = $postObj->ToUserName;
+            $keyword = trim($postObj->Content);
+            $time = time();
+            $textTpl = "<xml>
+            <ToUserName><![CDATA[%s]]></ToUserName>
+            <FromUserName><![CDATA[%s]]></FromUserName>
+            <CreateTime>%s</CreateTime>
+            <MsgType><![CDATA[%s]]></MsgType>
+            <Content><![CDATA[%s]]></Content>
+            <FuncFlag>0<FuncFlag>
+            </xml>";
+            if(!empty( $keyword ))
+            {
+                $msgType = "text";
+                $contentStr = '你好啊，屌丝';
+                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+                echo $resultStr;
+            }else{
+                echo '咋不说哈呢';
+            }
+        }else {
+            echo '咋不说哈呢';
+            exit;
+        }
     }
 
     //检查标签
