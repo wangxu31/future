@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/weixin', 'WeixinController@index');
 Route::get('/check', 'HomeController@check');
 Route::get('/order', 'OrderController@index')->name('orderHome');
 Route::get('/getOrder', 'OrderController@getOrder')->name('getOrder');
