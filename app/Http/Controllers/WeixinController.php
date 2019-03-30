@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 define('TOKEN','clive31');
 
-class WexinController extends Controller
+class WeixinController extends Controller
 {
     public function index()
     {
