@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Monolog\Logger;
 
 define('TOKEN','clive31');
 
@@ -36,6 +37,7 @@ class WeixinController extends Controller
     public function handleMsg()
     {
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+        Log::info($postStr);
         if (!empty($postStr)){
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
             $fromUsername = $postObj->FromUserName;
