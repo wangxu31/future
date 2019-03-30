@@ -11,6 +11,8 @@
 |
 */
 
+//ssh root@106.75.230.69
+
 Route::get('/', function () {
     return view('welcome');
 });
