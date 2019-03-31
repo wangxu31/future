@@ -46,11 +46,10 @@ class WeixinController extends Controller
 //			'msg_signature' => '3c406c64a2b72eae42600100dea819f3836c7131',
 //		);
 
-		info(json_encode($GLOBALS));return;
-        $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
-        if (!empty($postStr)){
-            $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
-            $fromUsername = $postObj->FromUserName;
+		$postArr = file_get_contents("php://input");    //php7.0只能用这种方式获取数据，之前的$GLOBALS['HTTP_RAW_POST_DATA']7.0版本不可用
+        if (!empty($postArr)){
+            $postObj = simplexml_load_string($postArr);
+			$fromUsername = $postObj->FromUserName;
             $toUsername = $postObj->ToUserName;
             $keyword = trim($postObj->Content);
             $time = time();
