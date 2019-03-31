@@ -58,7 +58,10 @@ class WeixinController extends Controller
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
             } else {
-                echo '不太懂你说的哦~';
+				$msgType = "text";
+				$contentStr = '不太懂你说的哦~';
+				$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+                echo $resultStr;
             }
         } else {
             echo '你说了些什么哦?';
