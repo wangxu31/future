@@ -89,7 +89,8 @@ class WeixinController extends Controller
 		$mediaId = $xmlObj->MediaId;
 		$format = $xmlObj->Format;
 		$msgId = $xmlObj->MsgID;
-		$contentStr = sprintf('收到你说的语音了(mediaId:%s,format:%s,msgId:%s)，等我回复哦~', $mediaId, $format, $msgId);
+		$recognition = $xmlObj->Recognition;
+		$contentStr = sprintf('收到你说的语音了(%s)，等我回复哦~', $recognition);
 		$resultStr = sprintf($textTpl, $xmlObj->FromUserName, $xmlObj->ToUserName, time(), $msgType, $contentStr);
 		return $resultStr;
 	}
