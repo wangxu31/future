@@ -36,18 +36,9 @@ class WeixinController extends Controller
 
     public function handleMsg()
     {
-
-//		array (
-//			'signature' => 'ccf594f2522ce5ebdc2310e630d6f5521b4638d0',
-//			'timestamp' => '1554015455',
-//			'nonce' => '689262025',
-//			'openid' => 'o9O7PwKec9bZRRejpiyFlAL_Sgwk',
-//			'encrypt_type' => 'aes',
-//			'msg_signature' => '3c406c64a2b72eae42600100dea819f3836c7131',
-//		);
-
-		$postArr = file_get_contents("php://input");    //php7.0只能用这种方式获取数据，之前的$GLOBALS['HTTP_RAW_POST_DATA']7.0版本不可用
-        if (!empty($postArr)){
+		//php7.0只能用这种方式获取数据，之前的$GLOBALS['HTTP_RAW_POST_DATA']7.0版本不可用
+		$postArr = file_get_contents("php://input");
+        if (!empty($postArr)) {
             $postObj = simplexml_load_string($postArr);
 			$fromUsername = $postObj->FromUserName;
             $toUsername = $postObj->ToUserName;
@@ -61,17 +52,16 @@ class WeixinController extends Controller
             <Content><![CDATA[%s]]></Content>
             <FuncFlag>0<FuncFlag>
             </xml>";
-            if(!empty( $keyword ))
-            {
+            if (!empty($keyword)) {
                 $msgType = "text";
-                $contentStr = '你好啊，屌丝';
+                $contentStr = '你好啊^_^快发语音记录吧~';
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
-            }else{
-                echo '咋不说哈呢';
+            } else {
+                echo '不太懂你说的哦~';
             }
-        }else {
-            echo '咋不说哈呢';
+        } else {
+            echo '你说了些什么哦?';
             exit;
         }
     }
