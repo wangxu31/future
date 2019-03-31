@@ -42,7 +42,8 @@ class WeixinController extends Controller
             $postObj = simplexml_load_string($postArr);
 			$fromUsername = $postObj->FromUserName;
             $toUsername = $postObj->ToUserName;
-            $keyword = trim($postObj->Content);
+            $content = trim($postObj->Content);
+            $userMsgType = $postObj->MsgType;
             $time = time();
             $textTpl = "<xml>
             <ToUserName><![CDATA[%s]]></ToUserName>
@@ -52,17 +53,32 @@ class WeixinController extends Controller
             <Content><![CDATA[%s]]></Content>
             <FuncFlag>0<FuncFlag>
             </xml>";
-            if (!empty($keyword)) {
-                $msgType = "text";
-                $contentStr = '你好啊^_^快发语音记录吧~';
-                $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                echo $resultStr;
-            } else {
-				$msgType = "text";
-				$contentStr = '不太懂你说的哦~';
-				$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
-                echo $resultStr;
-            }
+
+            switch ($userMsgType) {
+				case "text":
+					$msgType = "text";
+					$contentStr = '你好啊^_^快发语音记录吧~';
+					$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+					echo $resultStr;
+					break;
+				case "image":
+					$msgType = "text";
+					$contentStr = '收到你发的图片了，等我回复哦~';
+					$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+					echo $resultStr;
+					break;
+				case "voice":
+					$msgType = "text";
+					$contentStr = '收到你说的语音了，等我回复哦~';
+					$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+					echo $resultStr;
+					break;
+				default:
+					$msgType = "text";
+					$contentStr = '不太懂你说的哦~';
+					$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+					echo $resultStr;
+			}
         } else {
             echo '你说了些什么哦?';
             exit;
