@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Record;
 use Illuminate\Http\Request;
 use Monolog\Logger;
 use Illuminate\Log;
@@ -58,7 +59,11 @@ class WeixinController extends Controller
             switch ($userMsgType) {
 				case "text":
 					$msgType = "text";
-					$contentStr = '你好啊^_^快发语音记录吧~';
+					if ($content == "纸尿裤") {
+						$contentStr = json_encode($this->getRecord($fromUsername, 5));
+					} else {
+						$contentStr = '你好啊^_^快发语音记录吧~';
+					}
 					$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
 					echo $resultStr;
 					break;
@@ -84,6 +89,14 @@ class WeixinController extends Controller
         }
     }
 
+    public function test()
+	{
+		$recognition = "换纸尿裤";
+		return [
+			'data' => $this->parseContent('o9O7PwKec9bZRRejpiyFlAL_Sgwk', 3, '22248488900631721', $recognition)
+		];
+	}
+
     private function responseVoice(\SimpleXMLElement $xmlObj, $textTpl)
 	{
 		$msgType = "text";
@@ -91,9 +104,41 @@ class WeixinController extends Controller
 		$format = $xmlObj->Format;
 		$msgId = $xmlObj->MsgID;
 		$recognition = $xmlObj->Recognition;
+
+		$this->parseContent($xmlObj->FromUserName, 3, $msgId, $recognition);
+
 		$contentStr = sprintf('收到你说的语音了(%s)，等我回复哦~', $recognition);
 		$resultStr = sprintf($textTpl, $xmlObj->FromUserName, $xmlObj->ToUserName, time(), $msgType, $contentStr);
 		return $resultStr;
+	}
+
+	private function parseContent($wxUid, $msgType, $msgId, string $recognition)
+	{
+		$record = new Record();
+		$possibleSet = ['纸尿裤','尿布'];
+		foreach ($possibleSet as $elem) {
+			if (strstr($recognition, $elem)){
+				$record->wx_uid = $wxUid;
+				$record->msg_type = $msgType;
+				$record->msg_id = $msgId;
+				$record->raw = $recognition;
+				$record->type = 5;
+				$record->quantity = 1;
+				$res = $record->save();
+				if ($res) {
+					return true;
+				}
+				return false;
+			}
+		}
+		return false;
+
+	}
+
+	private function getRecord($wxUid, $type)
+	{
+		return Record::where("wx_uid", $wxUid)
+				->where("type", $type);
 	}
 
     //检查标签
