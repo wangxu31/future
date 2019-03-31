@@ -36,7 +36,17 @@ class WeixinController extends Controller
 
     public function handleMsg()
     {
-		info($_REQUEST);return;
+
+//		array (
+//			'signature' => 'ccf594f2522ce5ebdc2310e630d6f5521b4638d0',
+//			'timestamp' => '1554015455',
+//			'nonce' => '689262025',
+//			'openid' => 'o9O7PwKec9bZRRejpiyFlAL_Sgwk',
+//			'encrypt_type' => 'aes',
+//			'msg_signature' => '3c406c64a2b72eae42600100dea819f3836c7131',
+//		);
+
+		info($GLOBALS);return;
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
         if (!empty($postStr)){
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
