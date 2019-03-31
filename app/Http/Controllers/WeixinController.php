@@ -46,7 +46,7 @@ class WeixinController extends Controller
 //			'msg_signature' => '3c406c64a2b72eae42600100dea819f3836c7131',
 //		);
 
-		info($GLOBALS);return;
+		info(json_encode($GLOBALS));return;
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
         if (!empty($postStr)){
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
