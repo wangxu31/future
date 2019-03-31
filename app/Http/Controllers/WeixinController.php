@@ -68,9 +68,7 @@ class WeixinController extends Controller
 					echo $resultStr;
 					break;
 				case "voice":
-					$msgType = "text";
-					$contentStr = '收到你说的语音了，等我回复哦~';
-					$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+					$resultStr = $this->responseVoice($postObj, $textTpl);
 					echo $resultStr;
 					break;
 				default:
@@ -84,6 +82,17 @@ class WeixinController extends Controller
             exit;
         }
     }
+
+    private function responseVoice(\SimpleXMLElement $xmlObj, $textTpl)
+	{
+		$msgType = "text";
+		$mediaId = $xmlObj->MediaId;
+		$format = $xmlObj->Format;
+		$msgId = $xmlObj->MsgID;
+		$contentStr = sprintf('收到你说的语音了(mediaId:%s,format:%s,msgId:%s)，等我回复哦~', $mediaId, $format, $msgId);
+		$resultStr = sprintf($textTpl, $xmlObj->FromUserName, $xmlObj->ToUserName, time(), $msgType, $contentStr);
+		return $resultStr;
+	}
 
     //检查标签
     private function checkSignature()
