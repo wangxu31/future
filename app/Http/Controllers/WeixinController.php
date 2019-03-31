@@ -54,7 +54,7 @@ class WeixinController extends Controller
             </xml>";
             if (!empty($keyword)) {
                 $msgType = "text";
-                $contentStr = '你好啊^_^快发语音记录吧~';
+                $contentStr = '你好啊<br/>^_^<br/>快发语音记录吧~';
                 $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
                 echo $resultStr;
             } else {
