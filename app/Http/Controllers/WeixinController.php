@@ -38,6 +38,7 @@ class WeixinController extends Controller
     {
 		//php7.0只能用这种方式获取数据，之前的$GLOBALS['HTTP_RAW_POST_DATA']7.0版本不可用
 		$postArr = file_get_contents("php://input");
+		info($postArr);
         if (!empty($postArr)) {
             $postObj = simplexml_load_string($postArr);
 			$fromUsername = $postObj->FromUserName;
