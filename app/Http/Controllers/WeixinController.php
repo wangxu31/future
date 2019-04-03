@@ -91,10 +91,7 @@ class WeixinController extends Controller
 
     public function test()
 	{
-		$recognition = "换纸尿裤";
-		return [
-			'data' => $this->parseContent('o9O7PwKec9bZRRejpiyFlAL_Sgwk', 3, '22248488900631721', $recognition)
-		];
+
 	}
 
     private function responseVoice(\SimpleXMLElement $xmlObj, $textTpl)
