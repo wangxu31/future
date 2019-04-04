@@ -23,6 +23,11 @@ class WeixinController extends Controller
         }
     }
 
+    public function home()
+    {
+        return view('weixinhome');
+    }
+
     /*public function handleMsg()
     {
         //signature=e5dcaf8f1f56dec02822f23bb265a5e4829affd4
