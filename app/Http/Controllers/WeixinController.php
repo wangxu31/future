@@ -96,7 +96,8 @@ class WeixinController extends Controller
 
     public function test()
 	{
-
+	    $data = $_REQUEST['v1'];
+        return ['v1' => $data];
 	}
 
     private function responseVoice(\SimpleXMLElement $xmlObj, $textTpl)

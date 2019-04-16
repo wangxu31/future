@@ -22,7 +22,7 @@ Auth::routes();
 Route::get('/weixinhome', 'WeixinController@home');
 Route::get('/weixin', 'WeixinController@index');
 Route::post('/weixin', 'WeixinController@handleMsg');
-Route::get('/test', 'WeixinController@test');
+Route::any('/test', 'WeixinController@test');
 Route::get('/check', 'HomeController@check');
 Route::get('/order', 'OrderController@index')->name('orderHome');
 Route::get('/getOrder', 'OrderController@getOrder')->name('getOrder');
