@@ -27,3 +27,4 @@ Route::get('/check', 'HomeController@check');
 Route::get('/order', 'OrderController@index')->name('orderHome');
 Route::get('/getOrder', 'OrderController@getOrder')->name('getOrder');
 Route::get('/store', 'OrderController@store')->name('store');
+Route::get('/verify/getImgCode', 'VerifyCodeController@genImgCode');
